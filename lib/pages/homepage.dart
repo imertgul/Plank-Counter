@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedCategoryIndex = 0;
-  double _widthAnimated = double.infinity;
   double _heightAnimated = 280;
   bool started = true;
   Timer _timer;
@@ -447,7 +446,7 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: AnimatedContainer(
-          width: _widthAnimated,
+          width: double.infinity,
           height: started
               ? _heightAnimated
               : MediaQuery.of(context).size.height - kToolbarHeight,
