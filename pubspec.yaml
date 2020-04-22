@@ -1,5 +1,5 @@
 name: plank
-description: A new Flutter project.
+description: Plank exercise time counter and logger made with Flutter.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -50,6 +50,8 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - images/plank.png
+
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
