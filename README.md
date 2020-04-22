@@ -1,16 +1,32 @@
-# plank
+# MyPlankApp 
 
-A new Flutter project.
+Plank exercise time counter and logger made with Flutter
+
+> One of my first project with Flutter. Learned a lot with this 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is not realesed but.
 
-A few resources to get you started if this is your first Flutter project:
+A few resources to get you started:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Roadmap to Learn Flutter ](https://medium.com/flutterdevs/roadmap-to-become-a-flutter-developer-resources-for-beginners-ccb68718c84b)
+- [Install Flutter](https://flutter.dev/docs/get-started/install)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+```bash
+# Make sure that everything is ok
+flutter doctor
+# Clone this repository
+git clone https://github.com/imertgul/Plank-Counter.git
+# Go into the repository
+cd Plank-Counter
+# Install dependencies
+flutter packages get 
+# Run the app
+flutter run
+```
+
+
+
+
