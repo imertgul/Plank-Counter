@@ -46,7 +46,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
           ),
           IconButton(
-            onPressed: () => launch('https://github.com/imertgul/Plank-Takip'), //saveSample(),
+            onPressed: () => launch('https://github.com/imertgul/Plank-Counter.git'), //saveSample(),
             icon: Icon(Icons.info),
             color: Renkler.textOnP,
           ),
