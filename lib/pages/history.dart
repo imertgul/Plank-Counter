@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
@@ -10,6 +11,19 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   void exit() {
     Navigator.pop(context);
+  }
+
+
+  Future<Map> _fillHistory() async {
+    for (int i = 0; i < 50; i++) {
+      if (await read(
+              dateToString(DateTime.now().subtract(new Duration(days: i)))) !=
+          0) {
+        history[dateToString(DateTime.now().subtract(new Duration(days: i)))] = await read(
+            dateToString(DateTime.now().subtract(new Duration(days: i))));
+      }
+    }
+    return history;
   }
 
   Widget _buildTitleBar() {
@@ -32,7 +46,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
           ),
           IconButton(
-            onPressed: () => launch('https://github.com/imertgul/Plank-Takip'),
+            onPressed: () => launch('https://github.com/imertgul/Plank-Takip'), //saveSample(),
             icon: Icon(Icons.info),
             color: Renkler.textOnP,
           ),
@@ -41,44 +55,84 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildHistoryCard(String date, String weekday, String record) {
-    return Container(
-      height: 70,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Renkler.primary,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Renkler.pLight,
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      date + '  ' + weekday,
-                      style: TextStyle(fontSize: 20.0, color: Colors.white70),
-                    ),
-                    Text(
-                      record + ' sn',
-                      style: TextStyle(fontSize: 25.0, color: Renkler.textOnP),
-                    ),
-                  ],
-                ),
-              )
-            ],
+  Widget _buildHistoryCard(String date, String weekday, int record) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+        //height: 70,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Renkler.sDark,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Renkler.secondary,
+              borderRadius: BorderRadius.circular(3.0),
+            ),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  // // // // // padding: const EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0, bottom: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        date + '  ' + weekday,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        record.toString() + ' sn',
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            color: Renkler.textOnP,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildFutureList(){
+    return Container(
+                    height: MediaQuery.of(context).size.height - kToolbarHeight -30,
+                    child: FutureBuilder(
+                      future: _fillHistory(),
+                      builder: (context, projectSnap) {
+                        if (projectSnap.connectionState == ConnectionState.none &&
+                            projectSnap.hasData == null) {
+                          //print('project snapshot data is: ${projectSnap.data}');
+                          return Container();//Todo data null
+                        }
+                        return ListView.builder(
+                          itemCount: projectSnap.data.length +1,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == 0) {
+                              return Container();
+                            }
+                            return _buildHistoryCard(
+                                history.keys.toList()[index - 1] ,
+                                getWeekday(new DateFormat('yyyy-MM-dd').parse(history.keys.toList()[index - 1])),                               
+                                history.values.toList()[index - 1]
+                                );
+                          },
+                        );
+                      },
+                    ),
+                  );
   }
 
   @override
@@ -90,15 +144,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Renkler.pLight,
-                  Renkler.pDark,
-                ],
-                stops: [0.1, 0.9],
-              ),
+              color: Renkler.pLight,
             ),
           ),
           Container(
@@ -113,35 +159,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 children: <Widget>[
                   SizedBox(height: 20.0),
                   _buildTitleBar(),
-                  SizedBox(height: 20.0),
-                  _buildHistoryCard('21.04.20', 'Salı', '55'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('20.04.20', 'Pazartesi', '45'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('19.04.20', 'Pazar', '42'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('18.04.20', 'Cumartesi', '40'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('17.04.20', 'Cuma', '37'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('16.04.20', 'Perşembe', '35'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('15.04.20', 'Çarşamba', '35'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('14.04.20', 'Salı', '32'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('13.04.20', 'Pazartesi', '30'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('12.04.20', 'Pazar', '27'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('11.04.20', 'Cumartesi', '24'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('10.04.20', 'Cuma', '21'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('9.04.20', 'Perşembe', '18'),
-                  SizedBox(height: 5.0),
-                  _buildHistoryCard('8.04.20', 'Çarşamba', '15'),
-                  SizedBox(height: 5.0),
+                  _buildFutureList(),                 
                 ],
               ),
             ),
