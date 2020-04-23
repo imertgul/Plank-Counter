@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 Map<String, int> categories = {
   'Pazartesi': 88,
@@ -8,8 +10,9 @@ Map<String, int> categories = {
   'Cuma': 88,
   'Cumartesi': 88,
   'Pazar': 88,
-  
 };
+
+Map<String, int> history = {};
 
 List gunler = [
   'Pazartesi',
@@ -19,7 +22,6 @@ List gunler = [
   'Cuma',
   'Cumartesi',
   'Pazar',
- 
 ];
 
 class Renkler {
@@ -31,4 +33,49 @@ class Renkler {
   static const Color sLight = Color(0xff4fb3bf);
   static const Color sDark = Color(0xff005662);
   static const Color textOnS = Colors.white;
+}
+
+String todayToString() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd');
+  String formatted = formatter.format(now);
+  return formatted;
+}
+
+Future<int> read(String day) async {
+  final prefs = await SharedPreferences.getInstance();
+  final key = day;
+  final value = prefs.getInt(key) ?? 0;
+  print('read: $value  --- $day');
+  return value;
+}
+
+save(int record) async {
+  final prefs = await SharedPreferences.getInstance();
+  final key = todayToString();
+  final value = record;
+  prefs.setInt(key, value);
+  print('saved $value');
+}
+
+saveSample() async {
+  final prefs = await SharedPreferences.getInstance();
+  String key = todayToString();
+  for (var i = 0; i < 25; i++) {
+    final value = i;    
+    prefs.setInt(key, value);
+    print('saved $value');
+    key = dateToString(DateTime.now().subtract(new Duration(days: i)));
+  }
+}
+
+String dateToString(DateTime date) {
+  var formatter = new DateFormat('yyyy-MM-dd');
+  String formatted = formatter.format(date);
+  return formatted;
+}
+
+String getWeekday(DateTime date) {
+  String formatted = gunler[date.weekday - 1];
+  return formatted;
 }
