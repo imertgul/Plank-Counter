@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
 import 'dart:async';
 import '../utilities/constants.dart';
 import 'history.dart';
@@ -13,51 +11,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
   int _selectedCategoryIndex = 0;
   double _heightAnimated = 280;
   bool started = true;
   Timer _timer;
   int _start = 0;
 
-  Future<int> _read(String day) async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = day;
-    final value = prefs.getInt(key) ?? 0;
-    print('read: $value  --- $day');
-    return value;
-  }
-
-  _save(int record) async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = _todayToString();
-    final value = record;
-    prefs.setInt(key, value);
-    print('saved $value');
-  }
-
-  String _todayToString() {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formatted = formatter.format(now);
-    return formatted;
-  }
-
-  String _dateToString(DateTime date) {
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formatted = formatter.format(date);
-    return formatted;
-  }
-
-  String _getWeekday(DateTime date) {
-    String formatted = gunler[date.weekday -1];
-    return formatted;
-  }
-
+  
   Future<Map> _fillCategory() async {
     for (var i = 7; i >= 0; i--) {
-      categories[_getWeekday(DateTime.now().subtract(new Duration(days: i)))] =
-          await _read(
-              _dateToString(DateTime.now().subtract(new Duration(days: i))));
+      categories[getWeekday(DateTime.now().subtract(new Duration(days: i)))] =
+          await read(
+              dateToString(DateTime.now().subtract(new Duration(days: i))));
     }
     return categories;
   }
@@ -160,14 +126,14 @@ class _HomePageState extends State<HomePage> {
         }
         return ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: categories.length + 1,
+          itemCount: categories.length - DateTime.now().weekday + 2,
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
               return SizedBox(width: 20.0);
             }
             return _buildCategoryCard(
                 index - 1,
-                categories.keys.toList()[index -1],
+                categories.keys.toList()[index - 1],
                 categories.values.toList()[index -1]);
           },
         );
@@ -178,7 +144,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildLastWeek() {
     return Container(
-      // height: 162.0,
       decoration: BoxDecoration(
         color: Renkler.primary,
         borderRadius: BorderRadius.circular(10.0),
@@ -200,7 +165,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Container(
-            height: 114.0,
+            height: 115.0,
             child: _buildFuture(),
           ),
         ],
@@ -362,7 +327,7 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(
-          'Bu egzersiz sırasında belinizde ağrı hissetmemelisiniz çok ağrı yaşıyorsanız egzersizi bitirin.',
+          'Bu egzersiz sırasında belinizde ağrı hissetmemelisiniz. Çok ağrı yaşıyorsanız egzersizi bitirin.',
           style: TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
@@ -417,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                 textColor: Renkler.textOnS,
                 fontSize: 18.0);
             setState(() {
-              _save(_start);
+              save(_start);
               _start = 0;
               _timer.cancel();
               started = !started;
