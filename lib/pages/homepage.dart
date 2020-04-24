@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
         }
         return ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: categories.length - DateTime.now().weekday + 2,
+          itemCount: DateTime.now().weekday + 1,
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
               return SizedBox(width: 20.0);
