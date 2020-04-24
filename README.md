@@ -27,6 +27,8 @@ flutter packages get
 flutter run
 ```
 
+![Project image](https://raw.githubusercontent.com/imertgul/Plank-Counter/master/art/app2.gif)
+
 
 
 
