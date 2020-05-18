@@ -11,14 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   int _selectedCategoryIndex = 0;
   double _heightAnimated = 280;
+  double screenHeight = 600;
   bool started = true;
   Timer _timer;
   int _start = 0;
 
-  
   Future<Map> _fillCategory() async {
     for (var i = 7; i >= 0; i--) {
       categories[getWeekday(DateTime.now().subtract(new Duration(days: i)))] =
@@ -134,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             return _buildCategoryCard(
                 index - 1,
                 categories.keys.toList()[index - 1],
-                categories.values.toList()[index -1]);
+                categories.values.toList()[index - 1]);
           },
         );
       },
@@ -193,21 +192,25 @@ class _HomePageState extends State<HomePage> {
         },
         color: Renkler.pLight,
         splashColor: Renkler.sDark,
-        child: Text(
-          'Başla',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 28.0,
-            color: Renkler.textOnP,
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            'Başla',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28.0,
+              color: Renkler.textOnP,
+            ),
           ),
         ),
-        padding: EdgeInsets.all(100),
+        padding: EdgeInsets.all(screenHeight / 10),
         shape: CircleBorder(),
       ),
     );
   }
 
   Widget _buildPlankInfo() {
+  
     return AnimatedContainer(
       duration: Duration(seconds: 1),
       curve: Curves.fastOutSlowIn,
@@ -217,103 +220,117 @@ class _HomePageState extends State<HomePage> {
       ),
       width: double.infinity,
       height: _heightAnimated - 30,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0, left: 15.0, top: 10.0, bottom: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Plank',
-                          // textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 35.0,
-                            color: Renkler.textOnP,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Image(
-                            height: 45,
-                            image: AssetImage('images/plank.png'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Ayak parmaklarınız ve ön kolunuz zemin üzerinde yere uzanın.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          color: Colors.white70,
-                        ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                height: ((_heightAnimated - 30) / 6) * 2,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 5.0),
+                    child: Text(
+                      'Plank',                     
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35.0,
+                        color: Renkler.textOnP,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Yapabildiğiniz kadar vücudunuzu düz tutun ve bu pozisyonu koruyun.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          color: Colors.white70,
-                        ),
-                      ),
+                ),
+              ),
+              Container(
+                height: ((_heightAnimated - 30) / 6) * 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: FittedBox(
+                    child: Image(
+                      height: 55,
+                      image: AssetImage('images/plank.png'),
                     ),
                   ),
-                  SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Core bölgesi kasları yani bel, kalça ve özellikle de karın kaslarınız güçlenir.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          color: Colors.white70,
-                        ),
-                      ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: (_heightAnimated - 30) / 6,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FittedBox(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Ayak parmaklarınız ve ön kolunuz zemin üzerinde yere uzanın.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                      color: Colors.white70,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      onPressed: () {
-                        launch('https://en.wikipedia.org/wiki/Plank_(exercise)');
-                      },
-                      child: Text(
-                        'Detaylı bilgi için...',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10.0,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            height: (_heightAnimated - 30) / 6,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FittedBox(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Yapabildiğiniz kadar vücudunuzu düz tutun ve bu pozisyonu koruyun.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+              height: (_heightAnimated - 30) / 6,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: FittedBox(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Core bölgesi kasları yani bel, kalça ve özellikle de karın kaslarınız güçlenir.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              )),
+          Container(
+            height: (_heightAnimated - 30) / 6,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: FlatButton(
+                onPressed: () {
+                  launch('https://en.wikipedia.org/wiki/Plank_(exercise)');
+                },
+                child: Text(
+                  'Detaylı bilgi için...',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    color: Colors.white70,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -414,7 +431,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
           height: started
               ? _heightAnimated
-              : MediaQuery.of(context).size.height - kToolbarHeight,
+              : MediaQuery.of(context).size.height - kToolbarHeight + 10,
           decoration: BoxDecoration(
             color: started ? Renkler.primary : Renkler.secondary,
             borderRadius: BorderRadius.circular(10.0),
@@ -430,26 +447,29 @@ class _HomePageState extends State<HomePage> {
                   child: Offstage(
                     offstage: started,
                     child: Container(
-                      height: 257,
+                      height: MediaQuery.of(context).size.height / 2,
                       width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '$_start',
-                              style: TextStyle(
-                                fontSize: 55.0,
-                                fontWeight: FontWeight.bold,
-                                color: Renkler.textOnP,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Column(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '$_start',
+                                style: TextStyle(
+                                  fontSize: 55.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Renkler.textOnP,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 30.0),
-                          _buildWarning(),
-                          SizedBox(height: 30.0),
-                          _buildSaveButton(),
-                        ],
+                            SizedBox(height: 30.0),
+                            _buildWarning(),
+                            SizedBox(height: 10.0),
+                            _buildSaveButton(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -466,6 +486,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _heightAnimated = MediaQuery.of(context).size.height / 4;
+    screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         body: Stack(
       children: <Widget>[
