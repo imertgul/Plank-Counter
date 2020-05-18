@@ -12,8 +12,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedCategoryIndex = 0;
-  double _heightAnimated = 280;
-  double screenHeight = 600;
+  double _heightAnimated = 0;
+  double screenHeight = 0;
   bool started = true;
   Timer _timer;
   int _start = 0;
@@ -210,7 +210,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPlankInfo() {
-  
     return AnimatedContainer(
       duration: Duration(seconds: 1),
       curve: Curves.fastOutSlowIn,
@@ -219,19 +218,19 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.circular(10.0),
       ),
       width: double.infinity,
-      height: _heightAnimated - 30,
+      height: _heightAnimated - 20,
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                height: ((_heightAnimated - 30) / 6) * 2,
-                child: FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 5.0),
+          Container(
+            height: ((_heightAnimated - 20) / 6) * 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: FittedBox(
                     child: Text(
-                      'Plank',                     
+                      'Plank',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 35.0,
@@ -240,23 +239,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: ((_heightAnimated - 30) / 6) * 2,
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: FittedBox(
-                    child: Image(
-                      height: 55,
-                      image: AssetImage('images/plank.png'),
-                    ),
+                  child: Image(
+                    height: (((_heightAnimated - 20) / 6) * 2)-10,
+                    image: AssetImage('images/plank.png'),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Container(
-            height: (_heightAnimated - 30) / 6,
+            height: (_heightAnimated - 20) / 6,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: FittedBox(
@@ -275,7 +269,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Container(
-            height: (_heightAnimated - 30) / 6,
+            height: (_heightAnimated - 20) / 6,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: FittedBox(
@@ -294,25 +288,26 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Container(
-              height: (_heightAnimated - 30) / 6,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: FittedBox(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Core bölgesi kasları yani bel, kalça ve özellikle de karın kaslarınız güçlenir.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
-                        color: Colors.white70,
-                      ),
+            height: (_heightAnimated - 20) / 6,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FittedBox(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Core bölgesi kasları yani bel, kalça ve özellikle de karın kaslarınız güçlenir.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                      color: Colors.white70,
                     ),
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
           Container(
-            height: (_heightAnimated - 30) / 6,
+            height: (_heightAnimated - 20) / 6,
             child: Align(
               alignment: Alignment.centerRight,
               child: FlatButton(
@@ -439,7 +434,7 @@ class _HomePageState extends State<HomePage> {
           duration: Duration(seconds: 1),
           curve: Curves.fastOutSlowIn,
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(10.0),
             child: Stack(
               children: <Widget>[
                 Align(
