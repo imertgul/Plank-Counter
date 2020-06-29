@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Image(
-                    height: (((_heightAnimated - 20) / 6) * 2)-10,
+                    height: (((_heightAnimated - 20) / 6) * 2) - 10,
                     image: AssetImage('images/plank.png'),
                   ),
                 ),
