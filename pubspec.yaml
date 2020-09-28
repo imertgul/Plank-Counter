@@ -20,6 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
   fluttertoast: ^4.0.0
+  google_fonts: ^1.1.0
+  coolors_palette: ^0.0.2
   shared_preferences: ^0.4.3
   intl: ^0.16.1
   url_launcher: ^5.4.2
