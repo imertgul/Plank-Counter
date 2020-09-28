@@ -18,6 +18,24 @@ class _HomePageState extends State<HomePage> {
   Timer _timer;
   int _start = 0;
 
+  Widget _buildTitleBar() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text('Plank Sayacım', style: myStyle18boldD),
+          IconButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => HistoryScreen())),
+            icon: Icon(Icons.assessment),
+            color: Renkler.dark,
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<Map> _fillCategory() async {
     for (var i = 7; i >= 0; i--) {
       categories[getWeekday(DateTime.now().subtract(new Duration(days: i)))] =
@@ -37,31 +55,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildTitleBar() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'Plank Sayacım',
-            style: TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
-              color: Renkler.textOnP,
-            ),
-          ),
-          IconButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HistoryScreen())),
-            icon: Icon(Icons.assessment),
-            color: Renkler.textOnP,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildCategoryCard(int index, String title, int count) {
     return GestureDetector(
       onTap: () {
@@ -71,10 +64,10 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 5.0),
-        height: 108.0,
-        width: 96.0,
+        // height: 108.0,
+        width: 100.0,
         decoration: BoxDecoration(
-          color: Renkler.secondary,
+          color: Renkler.pink,
           borderRadius: BorderRadius.circular(5.0),
           boxShadow: [
             _selectedCategoryIndex == index
@@ -84,29 +77,20 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Text(
                 title,
-                style: TextStyle(
-                  color: Renkler.textOnS, //Color(0XFFAFB4C6)
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: myStyle16,
               ),
             ),
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Text(
                 count.toString() + " sn",
-                style: TextStyle(
-                  color: Renkler.textOnS,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: myStyle16,
               ),
             )
           ],
@@ -142,32 +126,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildLastWeek() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Renkler.primary,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 15.0, top: 15.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Bu Hafta',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Renkler.textOnP,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Renkler.pinkD,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 15.0, top: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Bu Hafta',
+                  style: myStyle16,
                 ),
               ),
             ),
-          ),
-          Container(
-            height: 115.0,
-            child: _buildFuture(),
-          ),
-        ],
+            Container(
+              height: 115.0,
+              child: _buildFuture(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -181,8 +164,7 @@ class _HomePageState extends State<HomePage> {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor: Renkler.secondary,
-            textColor: Renkler.textOnS,
+            backgroundColor: Renkler.green,
             fontSize: 16.0),
         onLongPress: () {
           setState(() {
@@ -190,18 +172,11 @@ class _HomePageState extends State<HomePage> {
             startTimer();
           });
         },
-        color: Renkler.pLight,
-        splashColor: Renkler.sDark,
-        child: FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Text(
-            'Başla',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28.0,
-              color: Renkler.textOnP,
-            ),
-          ),
+        color: Renkler.pinkD,
+        splashColor: Renkler.beyaz,
+        child: Text(
+          'Başla',
+          style: myStyle18bold,
         ),
         padding: EdgeInsets.all(screenHeight / 10),
         shape: CircleBorder(),
@@ -214,7 +189,7 @@ class _HomePageState extends State<HomePage> {
       duration: Duration(seconds: 1),
       curve: Curves.fastOutSlowIn,
       decoration: BoxDecoration(
-        color: started ? Renkler.pLight : Renkler.sLight,
+        color: started ? Renkler.pink : Renkler.greenL,
         borderRadius: BorderRadius.circular(10.0),
       ),
       width: double.infinity,
@@ -231,11 +206,7 @@ class _HomePageState extends State<HomePage> {
                   child: FittedBox(
                     child: Text(
                       'Plank',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
-                        color: Renkler.textOnP,
-                      ),
+                      style: myStyle18bold,
                     ),
                   ),
                 ),
@@ -258,11 +229,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Ayak parmaklarınız ve ön kolunuz zemin üzerinde yere uzanın.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                    ),
+                    style: myStyle16,
                   ),
                 ),
               ),
@@ -277,11 +244,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Yapabildiğiniz kadar vücudunuzu düz tutun ve bu pozisyonu koruyun.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                    ),
+                    style: myStyle16,
                   ),
                 ),
               ),
@@ -296,11 +259,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Core bölgesi kasları yani bel, kalça ve özellikle de karın kaslarınız güçlenir.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                    ),
+                    style: myStyle16,
                   ),
                 ),
               ),
@@ -316,11 +275,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Text(
                   'Detaylı bilgi için...',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10.0,
-                    color: Colors.white70,
-                  ),
+                  style: myStyle12,
                 ),
               ),
             ),
@@ -333,18 +288,15 @@ class _HomePageState extends State<HomePage> {
   Widget _buildWarning() {
     return Container(
       decoration: BoxDecoration(
-        color: Renkler.sDark,
+        color: Renkler.greenL,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Text(
-          'Bu egzersiz sırasında belinizde ağrı hissetmemelisiniz. Çok ağrı yaşıyorsanız egzersizi bitirin.',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white60,
-          ),
+          'Bu egzersiz sırasında belinizde ağrı hissetmemelisiniz.\n Çok ağrı yaşıyorsanız egzersizi bitirin.',
+          style: myStyle16,
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -364,14 +316,10 @@ class _HomePageState extends State<HomePage> {
               started = !started;
             });
           },
-          color: Renkler.pLight,
+          color: Renkler.greenL,
           child: Text(
             'İptal Etmek için uzun basınız',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-              color: Renkler.textOnP,
-            ),
+            style: myStyle18,
           ),
         ),
       ),
@@ -390,8 +338,8 @@ class _HomePageState extends State<HomePage> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
-                backgroundColor: Renkler.secondary,
-                textColor: Renkler.textOnS,
+                backgroundColor: Renkler.pink,
+                textColor: Renkler.beyaz,
                 fontSize: 18.0);
             setState(() {
               save(_start);
@@ -400,17 +348,10 @@ class _HomePageState extends State<HomePage> {
               started = !started;
             });
           },
-          color: Renkler.sLight,
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Text(
-              'Kaydet ve Bitir',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28.0,
-                color: Renkler.textOnP,
-              ),
-            ),
+          color: Renkler.greenL,
+          child: Text(
+            'Kaydet ve Bitir',
+            style: myStyle18,
           ),
         ),
       ),
@@ -428,7 +369,7 @@ class _HomePageState extends State<HomePage> {
               ? _heightAnimated
               : MediaQuery.of(context).size.height - kToolbarHeight + 10,
           decoration: BoxDecoration(
-            color: started ? Renkler.primary : Renkler.secondary,
+            color: started ? Renkler.pinkD : Renkler.green,
             borderRadius: BorderRadius.circular(10.0),
           ),
           duration: Duration(seconds: 1),
@@ -452,11 +393,7 @@ class _HomePageState extends State<HomePage> {
                               alignment: Alignment.center,
                               child: Text(
                                 '$_start',
-                                style: TextStyle(
-                                  fontSize: 55.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Renkler.textOnP,
-                                ),
+                                style: myStyle40bold,
                               ),
                             ),
                             SizedBox(height: 30.0),
@@ -485,47 +422,27 @@ class _HomePageState extends State<HomePage> {
     screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Renkler.pLight,
-                Renkler.pDark,
-              ],
-              stops: [0.1, 0.9],
-            ),
+        backgroundColor: Renkler.background,
+        body: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    // SizedBox(height: 20.0),
+                    _buildTitleBar(),
+                    _buildLastWeek(),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: _buildStartButton(),
+              ),
+              _buildStartedContainer(),
+            ],
           ),
-        ),
-        Container(
-          height: double.infinity,
-          child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 20.0,
-            ),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 20.0),
-                _buildTitleBar(),
-                SizedBox(height: 10.0),
-                _buildLastWeek(),
-              ],
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: _buildStartButton(),
-        ),
-        _buildStartedContainer(),
-      ],
-    ));
+        ));
   }
 }
