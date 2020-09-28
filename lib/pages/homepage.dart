@@ -338,7 +338,7 @@ class _HomePageState extends State<HomePage> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
-                backgroundColor: Renkler.pink,
+                backgroundColor: Renkler.green,
                 textColor: Renkler.beyaz,
                 fontSize: 18.0);
             setState(() {
