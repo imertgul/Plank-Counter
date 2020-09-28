@@ -1,12 +1,10 @@
 # MyPlankApp 
 
-Plank exercise time counter and logger made with Flutter
+Plank exercise time counter and logger made with Flutter. 
 
 > One of my first project with Flutter. Learned a lot with this 
 
 ## Getting Started
-
-This project is not realesed but.
 
 A few resources to get you started:
 
@@ -26,9 +24,10 @@ flutter packages get
 # Run the app
 flutter run
 ```
+<!-- 
+![Project image](https://raw.githubusercontent.com/imertgul/Plank-Counter/master/art/app2.gif) -->
 
-![Project image](https://raw.githubusercontent.com/imertgul/Plank-Counter/master/art/app2.gif)
 
-
+<img src="https://raw.githubusercontent.com/imertgul/Plank-Counter/master/art/app2.gif" width = 300>
 
 
