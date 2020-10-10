@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:coolors_palette/coolors_palette.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 // final myColors = CoolorsPalette("https://coolors.co/006466-0b525b-1b3a4b-1e1f3b-1b1b2a-191921-171618-e2dee4");
@@ -20,37 +19,27 @@ class Renkler {
   static Color beyaz = Colors.white;
 }
 
-TextStyle myStyle12 = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(fontSize: 12.0, color: Renkler.beyaz));
-TextStyle myStyle16 = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(fontSize: 15.0, color: Renkler.beyaz));
+TextStyle myStyle12 = TextStyle(fontSize: 12.0, color: Renkler.beyaz);
+TextStyle myStyle16 = TextStyle(fontSize: 15.0, color: Renkler.beyaz);
 
-TextStyle myStyle16bold = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(
-        fontSize: 15.0, color: Renkler.beyaz, fontWeight: FontWeight.bold));
+TextStyle myStyle16bold = TextStyle(
+    fontSize: 15.0, color: Renkler.beyaz, fontWeight: FontWeight.bold);
 
-TextStyle myStyle18 = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(fontSize: 18.0, color: Renkler.beyaz));
+TextStyle myStyle18 = TextStyle(fontSize: 18.0, color: Renkler.beyaz);
 
-TextStyle myStyle18bold = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(
-        fontSize: 18.0, color: Renkler.beyaz, fontWeight: FontWeight.bold));
-TextStyle myStyle40bold = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(
-        fontSize: 40.0, color: Renkler.beyaz, fontWeight: FontWeight.bold));
-TextStyle myStyle16D = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(fontSize: 15.0, color: Renkler.dark));
+TextStyle myStyle18bold = TextStyle(
+    fontSize: 18.0, color: Renkler.beyaz, fontWeight: FontWeight.bold);
+TextStyle myStyle40bold = TextStyle(
+    fontSize: 40.0, color: Renkler.beyaz, fontWeight: FontWeight.bold);
+TextStyle myStyle16D = TextStyle(fontSize: 15.0, color: Renkler.dark);
 
-TextStyle myStyle16boldD = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(
-        fontSize: 15.0, color: Renkler.dark, fontWeight: FontWeight.bold));
+TextStyle myStyle16boldD =
+    TextStyle(fontSize: 15.0, color: Renkler.dark, fontWeight: FontWeight.bold);
 
-TextStyle myStyle18D = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(fontSize: 18.0, color: Renkler.dark));
+TextStyle myStyle18D = TextStyle(fontSize: 18.0, color: Renkler.dark);
 
-TextStyle myStyle18boldD = GoogleFonts.ubuntuCondensed(
-    textStyle: TextStyle(
-        fontSize: 18.0, color: Renkler.dark, fontWeight: FontWeight.bold));
+TextStyle myStyle18boldD =
+    TextStyle(fontSize: 18.0, color: Renkler.dark, fontWeight: FontWeight.bold);
 
 class RenklerYedek {
   static const Color primary = Color(0xff37474f);
