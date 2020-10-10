@@ -146,3 +146,6 @@ output.json
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # End of https://www.gitignore.io/api/android,flutter
+android/key.properties
+ios/.DS_Store
+.DS_Store
